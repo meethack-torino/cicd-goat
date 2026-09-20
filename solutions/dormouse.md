@@ -1,6 +1,6 @@
-[![CICD-SEC-8 Ungoverned Usage of 3rd Party Services](https://img.shields.io/badge/CICD--SEC--8-Ungoverned%20Usage%20of%203rd%20Party%20Services-brightgreen)](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-08-Ungoverned-Usage-of-3rd-Party-Services)
+[![CICD-SEC-8 Ungoverned Usage of 3rd Party Services](https://img.shields.io/badge/CICD--SEC--8-Ungoverned%20Usage%20of%203rd%20Party%20Services-brightgreen)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-08-Ungoverned-Usage-of-3rd-Party-Services.md)
 
-[![CICD-SEC-9 Improper Artifact Integrity Validation](https://img.shields.io/badge/CICD--SEC--9-Improper%20Artifact%20Integrity%20Validation-brightgreen)](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-09-Improper-Artifact-Integrity-Validation)
+[![CICD-SEC-9 Improper Artifact Integrity Validation](https://img.shields.io/badge/CICD--SEC--9-Improper%20Artifact%20Integrity%20Validation-brightgreen)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-09-Improper-Artifact-Integrity-Validation.md)
 
 This challenge draws inspiration from the [Codecov incident](https://about.codecov.io/security-update/), in which a 3rd party artifact included in the pipeline is hijacked.
 
@@ -27,7 +27,7 @@ In the challenge, Reportcov is a public repository of a 3rd party used by other 
 3. Use the private key to upload a malicious _reportcov.sh_ script: 
 
     ```shell
-    echo "${FLAG}" | base64 > reportcov.sh
+    echo 'echo "${FLAG}" | base64' > reportcov.sh
     chmod 400 key
     scp -P 2222 -i key reportcov.sh root@localhost:/var/www/localhost/htdocs
     ```

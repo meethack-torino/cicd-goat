@@ -1,4 +1,4 @@
-[![CICD-SEC-2 Inadequate Identity and Access Management](https://img.shields.io/badge/CICD--SEC--2-Inadequate%20Identity%20and%20Access%20Management-brightgreen)](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-02-Inadequate-Identity-And-Access-Management)
+[![CICD-SEC-2 Inadequate Identity and Access Management](https://img.shields.io/badge/CICD--SEC--2-Inadequate%20Identity%20and%20Access%20Management-brightgreen)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-02-Inadequate-Identity-And-Access-Management.md)
 
 Identify the user that has privileged access to manage agents. Looking at the list of Jenkins users shows a short list of users, one of them is Knave - whose description reveals that it is an agents admin. Sounds like a place to start from.
 
@@ -26,3 +26,14 @@ The users in the Jenkins instance are managed by Jenkins’ own user database, w
     ![hearts_3](../images/hearts_3.png "hearts_3")
 
 Note: The SSH server can also be created locally by setting up the ssh-mitm container in the "goat" network using `docker network connect`. 
+
+Solution using only containers:
+
+5. Launch _SSH-MITM_ with:
+    * `docker network ls`
+    * `docker run --network=<the_goat_network_name_retrieved_before> --name evil-jenkins-agent -it --rm positronsecurity/ssh-mitm`
+6. Use `evil-jenkins-agent` as host and `2222` as port.
+7. Check for incoming connections entering in the container:
+    * `docker exec -it evil-jenkins-agent /bin/bash`
+    * `ls /home/ssh-mitm/log/`
+    * `cat /home/ssh-mitm/log/sftp_session_*.html`

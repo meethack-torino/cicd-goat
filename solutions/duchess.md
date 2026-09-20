@@ -1,4 +1,4 @@
-[![CICD-SEC-6 Insufficient Credential Hygiene](https://img.shields.io/badge/CICD--SEC--6-Insufficient%20Credential%20Hygiene-brightgreen)](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-06-Insufficient-Credential-Hygiene)
+[![CICD-SEC-6 Insufficient Credential Hygiene](https://img.shields.io/badge/CICD--SEC--6-Insufficient%20Credential%20Hygiene-brightgreen)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-06-Insufficient-Credential-Hygiene.md)
 
 Secrets are often pushed to the SCM unintentionally. This makes them accessible to any user with Read permission on the repository.
 
@@ -19,8 +19,12 @@ Finding secrets manually in past commits might be tedious, however there are ple
 3. Run Gitleaks against the repository:
 
     ```bash
-    gitleaks detect -v
+    gitleaks detect -v --enable-rule="pypi-upload-token"
     ```
+	or using Docker:
+	```bash
+	docker run -v <full_path_to_host_folder_to_scan>:/path zricethezav/gitleaks:latest detect --source="path" -v --enable-rule="pypi-upload-token"
+	```
 
 
 4. Grab the pypi token.

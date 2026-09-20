@@ -1,4 +1,4 @@
-[![CICD-SEC-1 Insufficient Flow Control Mechanisms](https://img.shields.io/badge/CICD--SEC--1-Insufficient%20Flow%20Control%20Mechanisms-brightgreen)](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-01-Insufficient-Flow-Control-Mechanisms)
+[![CICD-SEC-1 Insufficient Flow Control Mechanisms](https://img.shields.io/badge/CICD--SEC--1-Insufficient%20Flow%20Control%20Mechanisms-brightgreen)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-01-Insufficient-Flow-Control-Mechanisms.md)
 
 The _mock-turtle_ pipeline is used to automatically merge code into the main branch if it introduces just a version bump (stored in the _version_ file). The auto-merge code can be bypassed to merge malicious code into the main branch. The code was inspired by this [blog post](https://blog.ryotak.me/post/homebrew-security-incident-en/) by Ryotak, and this [Stack Overflow answer](https://stackoverflow.com/a/31823590/6691195) about counting words diff.
 
@@ -19,7 +19,7 @@ To access the flag, the attacker can do as follows:
 
 
 1. Checkout to a new branch.
-2. Modify the version file, so its structure would stay valid (like 1.2.3).
+2. Modify the version file, so its structure would stay valid (like 1.2.3). Pay attention to the `\n` in the version file! Be sure to remove them!
 3. Modify the Jenkinsfile to access the flag.
 
 

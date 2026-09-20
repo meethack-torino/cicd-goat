@@ -1,6 +1,6 @@
-[![CICD-SEC-4 Poisoned Pipeline Execution (PPE)](https://img.shields.io/badge/CICD--SEC--4-Poisoned%20Pipeline%20Execution%20(PPE)-brightgreen)](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-04-Poisoned-Pipeline-Execution)
+[![CICD-SEC-4 Poisoned Pipeline Execution (PPE)](https://img.shields.io/badge/CICD--SEC--4-Poisoned%20Pipeline%20Execution%20(PPE)-brightgreen)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-04-Poisoned-Pipeline-Execution.md)
 
-Create a pull request originated from a fork and execute a [Public-PPE (3PE)](https://www.cidersecurity.io/blog/research/ppe-poisoned-pipeline-execution/?utm_source=github&utm_medium=github_page&utm_campaign=ci%2fcd%20goat_060422) attack against the _Wonderland/Caterpillar_ repository to elevate your privileges and steal the _flag2_ secret.
+Create a pull request originated from a fork and execute a [Public-PPE (3PE)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-04-Poisoned-Pipeline-Execution.md) attack against the _Wonderland/Caterpillar_ repository to elevate your privileges and steal the _flag2_ secret.
 
 1. Fork the _Wonderland/Caterpillar_ repository.
 2. Modify the Jenkinsfile in the fork to print the environment variables into the console output, or send it to a server you control.
@@ -32,6 +32,8 @@ Create a pull request originated from a fork and execute a [Public-PPE (3PE)](ht
         }
     }
     ```
+
+    Considerations about the `when` condition in the `deploy` `stage` of the pipeline. You can both: remove the condition for the attack and do it via PR or leave it and push directly on `main` branch instead.
 
 7. Push the modified Jenkinsfile to the main branch in the repository. The _wonderland-caterpillar-prod_ pipeline will be triggered automatically.
 8. Access the console output of the executed job to get the encoded secret.

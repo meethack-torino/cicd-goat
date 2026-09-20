@@ -1,8 +1,8 @@
-[![CICD-SEC-4 Poisoned Pipeline Execution (PPE)](https://img.shields.io/badge/CICD--SEC--4-Poisoned%20Pipeline%20Execution%20(PPE)-brightgreen)](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-04-Poisoned-Pipeline-Execution)
+[![CICD-SEC-4 Poisoned Pipeline Execution (PPE)](https://img.shields.io/badge/CICD--SEC--4-Poisoned%20Pipeline%20Execution%20(PPE)-brightgreen)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-04-Poisoned-Pipeline-Execution.md)
 
-[![CICD-SEC-5 Insufficient PBAC (Pipeline-Based Access Controls)](https://img.shields.io/badge/CICD--SEC--5-Insufficient%20PBAC%20(Pipeline%20Based%20Access%20Controls)-brightgreen)](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-05-Insufficient-PBAC)
+[![CICD-SEC-5 Insufficient PBAC (Pipeline-Based Access Controls)](https://img.shields.io/badge/CICD--SEC--5-Insufficient%20PBAC%20(Pipeline%20Based%20Access%20Controls)-brightgreen)](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-05-Insufficient-PBAC.md)
 
-Execute the _cheshire-cat_ pipeline on the Jenkins Controller by executing a [Direct-PPE](https://www.cidersecurity.io/blog/research/ppe-poisoned-pipeline-execution/?utm_source=github&utm_medium=github_page&utm_campaign=ci%2fcd%20goat_060422) attack, and get the secret which is stored in the Controller’s file system.
+Execute the _cheshire-cat_ pipeline on the Jenkins Controller by executing a [Direct-PPE](https://github.com/OWASP/www-project-top-10-ci-cd-security-risks/blob/main/CICD-SEC-04-Poisoned-Pipeline-Execution.md) attack, and get the secret which is stored in the Controller’s file system.
 
 
 1. Clone the _Wonderland/cheshire-cat_ repository.
@@ -25,7 +25,7 @@ Execute the _cheshire-cat_ pipeline on the Jenkins Controller by executing a [Di
         stages {
             stage ('Install_Requirements') {
                 steps {
-                    sh 'cat ~/flag5.txt'
+                    sh 'cat ~/flag5'
                 }
             }
         }
