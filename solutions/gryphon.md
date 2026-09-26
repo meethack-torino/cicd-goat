@@ -10,7 +10,7 @@ As the instructions of this challenge hint, let's try to see if we can find any 
 A simple search tells us it is referenced by the *nest-of-gold* project 
 
 
-![grpyhon](../images/gryphon-1.png "grpyhon")
+![gryphon](../images/gryphon-1.png "gryphon")
 
 We can see that *Flag11* is used in a pipeline that ships a container used in production.
 
@@ -18,7 +18,7 @@ Browsing to the pipeline settings, we discover that a scheduling is set, and tha
 
 If we keep looking, we can discover that the same user is executing the *awesome-app* project's pipeline.
 
-Diving into *awesome-app*, it is using the pygrphon package as a dependency! We can tell it by the *requirments.txt* file:
+Diving into *awesome-app*, it is using the *pygryphon* package as a dependency! We can tell it by the `requirements.txt` file:
 
 ```
 --extra-index-url http://token:cd79dd622c6d463a574635e874765c0b@gitlab/api/v4/projects/pygryphon%2Fpygryphon/packages/pypi/simple --trusted-host gitlab
@@ -33,7 +33,7 @@ This means we can try and influence the *awesome-app* pipeline by uploading a ne
 
 Our end goal is in the *nest-of-gold* project, how can we influence its pipeline?
   
-Let's have a look at the Dockerfile inside *nest-of-gold*. We can see it's dependent on the python:3.8 docker image stored in the *nest-of-gold* container registry, and not the offical registry.
+Let's have a look at the Dockerfile inside *nest-of-gold*. We can see it's dependent on the `python:3.8` Docker image stored in the *nest-of-gold* container registry, and not the offical registry.
   
 ```docker
 FROM gitlab:5050/wonderland/nest-of-gold/python:3.8
@@ -46,15 +46,15 @@ RUN pip3 install -r requirements.txt
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 ```
   
-Here comes the tricky part 🥸 let's create a malicious *pygryphon* package that pushes a malicious python3.8 docker base image to the *nest-of-gold* container registry.
+Here comes the tricky part 🥸 let's create a malicious *pygryphon* package that pushes a malicious `python3.8` Docker base image to the *nest-of-gold* container registry.
 
 
-In the *awesome-app* pipeline we can see a PAT being used named *TOKEN*.
+In the *awesome-app* pipeline we can see a PAT being used named `TOKEN`.
 
 `docker login -u gryphon -p $TOKEN $CI_REGISTRY`
 
 Let's try to steal this token and use it against the *nest-of-gold* container registry.     
-In this package, we create a script named "python3" that the docker image of *nest-of-gold* will execute mistakenly instead of the actual python3 interpreter.   
+In this package, we create a script named "`python3`" that the docker image of *nest-of-gold* will execute mistakenly instead of the actual python3 interpreter.   
 Modified *greet.py* content:
 
 ```python
@@ -105,11 +105,23 @@ Conveniently you may use these files to build the package:
 
 
 ```sh
-pipenv run python3 -m build [path_to_package]
-pipenv run python3 -m twine upload -r gitlab
+git clone http://localhost:4000/pygryphon/pygryphon.git
+cd pygryphon
+```
+Patch the source code and create `.pypirc` file.
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip install build
+python -m build
+```
+Remove existing packages under http://localhost:4000/pygryphon/pygryphon/-/packages
+```sh
+pip install twine
+python3 -m twine upload -r gitlab --config-file .pypirc --verbose dist/*
 ```
 
-Now prepare a cup of coffe ☕️ wait for the two pipeline scheduling to take place, and expect the flag to arrive at your http server.
+Now prepare a cup of coffe ☕️ wait for the two pipeline scheduling to take place, and expect the flag to arrive at your HTTP server.
 
 Solution summary:
 ![diagram](../images/gryphon-2.png)
